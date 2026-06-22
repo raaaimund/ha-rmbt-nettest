@@ -3,7 +3,9 @@ RMBT Speedtest — Home Assistant Integration
 
 A [Home Assistant](https://www.home-assistant.io/) custom integration that runs RMBT network speed tests and exposes the results as sensors.
 
-Uses the Python RMBT client from [open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli). No third-party dependencies — pure Python stdlib.
+Uses the Python RMBT client from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of the original [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). No third-party dependencies — pure Python stdlib.
+
+Special thanks to [RTR-Netztest](https://www.netztest.at) for providing the measurement infrastructure.
 
 
 ## Sensors
@@ -89,6 +91,13 @@ automation:
           Speed test: download {{ states('sensor.rmbt_speedtest_download_speed') }} Mbit/s
           — {{ states('sensor.rmbt_speedtest_result_url') }}
 ```
+
+
+## Bundled Python client
+
+The `custom_components/rmbt_speedtest/rmbt_client/` directory is a verbatim copy of the Python client from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli). It is bundled rather than referenced as a git submodule because HACS does not initialise submodules on install.
+
+If the Python client is ever published to PyPI, the bundled copy can be replaced with a `requirements` entry in `manifest.json` and the directory removed. Until then, keep the copy in sync with upstream manually when the client is updated.
 
 
 ## License
