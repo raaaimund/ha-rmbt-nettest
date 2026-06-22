@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "RMBT Speedtest",
+        "description": "Gib die Basis-URL des RMBT-Kontrollservers ein. Der Standardwert verbindet sich mit dem österreichischen RTR-Netztest.",
+        "data": {
+          "host": "Kontrollserver-URL"
+        },
+        "data_description": {
+          "host": "Basis-URL des RMBT-Kontrollservers, z. B. https://c01.netztest.at (RTR Netztest Österreich)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Der RMBT-Kontrollserver ist nicht erreichbar. Bitte URL und Netzwerkverbindung prüfen.",
+      "unknown": "Ein unerwarteter Fehler ist aufgetreten."
+    },
+    "abort": {
+      "already_configured": "Dieser Kontrollserver ist bereits konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "RMBT Speedtest Optionen",
+        "data": {
+          "scan_interval": "Testintervall (Minuten)",
+          "threads": "Download-/Upload-Threads (0 = automatisch)",
+          "duration": "Testdauer in Sekunden (0 = Servervorgabe)",
+          "no_tls_verify": "TLS-Zertifikatsprüfung überspringen (unsicher)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "download_speed": {
+        "name": "Download-Geschwindigkeit"
+      },
+      "upload_speed": {
+        "name": "Upload-Geschwindigkeit"
+      },
+      "ping_min": {
+        "name": "Ping (Min)"
+      },
+      "ping_median": {
+        "name": "Ping (Median)"
+      },
+      "result_url": {
+        "name": "Ergebnis-URL"
+      }
+    },
+    "button": {
+      "run_test": {
+        "name": "Speedtest starten"
+      }
+    }
+  }
+}
