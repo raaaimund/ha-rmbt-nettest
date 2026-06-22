@@ -102,4 +102,6 @@ If the Python client is ever published to PyPI, the bundled copy can be replaced
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+The integration code is licensed under the **MIT License** — see [LICENSE](LICENSE).
+
+The bundled Python client in `custom_components/rmbt_speedtest/rmbt_client/` originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0** — see [rmbt_client/LICENSE](custom_components/rmbt_speedtest/rmbt_client/LICENSE).
