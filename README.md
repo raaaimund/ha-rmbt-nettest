@@ -79,6 +79,81 @@ state:
         - color: var(--warning-color)
 ```
 
+### Dashboard button with spinner (Mushroom)
+
+Install [lovelace-mushroom](https://github.com/piitaya/lovelace-mushroom) via HACS.
+
+**Basic — icon and color change, no spin (no extra plugins needed):**
+
+```yaml
+type: custom:mushroom-template-card
+primary: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    Running...
+  {% else %}
+    Run Speedtest
+  {% endif %}
+secondary: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    Test in progress
+  {% else %}
+    Tap to start a speed test
+  {% endif %}
+icon: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    mdi:loading
+  {% else %}
+    mdi:speedometer
+  {% endif %}
+color: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    orange
+  {% else %}
+    blue
+  {% endif %}
+tap_action:
+  action: perform-action
+  perform_action: button.press
+  target:
+    entity_id: button.rmbt_speedtest_run_speedtest
+```
+
+**With animated spinner — requires [card_mod](https://github.com/thomasloven/lovelace-card-mod) (HACS) in addition to Mushroom:**
+
+```yaml
+type: custom:mushroom-template-card
+primary: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    Running...
+  {% else %}
+    Run Speedtest
+  {% endif %}
+icon: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    mdi:loading
+  {% else %}
+    mdi:speedometer
+  {% endif %}
+color: >
+  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    orange
+  {% else %}
+    blue
+  {% endif %}
+tap_action:
+  action: perform-action
+  perform_action: button.press
+  target:
+    entity_id: button.rmbt_speedtest_run_speedtest
+card_mod:
+  style: |
+    {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    mushroom-shape-icon {
+      --icon-animation: spin 1s linear infinite;
+    }
+    {% endif %}
+```
+
 ### Automation / script — button press
 
 ```yaml
