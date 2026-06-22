@@ -58,6 +58,27 @@ Copy `custom_components/rmbt_speedtest/` into your HA `config/custom_components/
 
 Add a **Button** card pointing at the `button.run_speedtest` entity to kick off a test on demand.
 
+The button automatically becomes **unavailable (grayed out)** while a test is running, preventing double-presses. A companion `binary_sensor.rmbt_speedtest_test_running` entity turns `on` for the duration of the test and can be used in automations or custom dashboard cards.
+
+### Dashboard button with spinner (custom:button-card)
+
+Install [custom:button-card](https://github.com/custom-cards/button-card) via HACS, then use the following card configuration to show an animated spinner while the test is in progress:
+
+```yaml
+type: custom:button-card
+entity: button.rmbt_speedtest_run_speedtest
+name: Run Speedtest
+icon: mdi:speedometer
+state:
+  - value: unavailable
+    icon: mdi:loading
+    spin: true
+    name: Running...
+    styles:
+      icon:
+        - color: var(--warning-color)
+```
+
 ### Automation / script — button press
 
 ```yaml
