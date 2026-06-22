@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "RMBT Speedtest",
+        "description": "Enter the base URL of the RMBT control server. The default connects to the Austrian RTR Netztest service.",
+        "data": {
+          "host": "Control server URL"
+        },
+        "data_description": {
+          "host": "Base URL of the RMBT control server, e.g. https://controlserver.netztest.at"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to reach the RMBT control server. Check the URL and your network connection.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This control server is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "RMBT Speedtest options",
+        "data": {
+          "scan_interval": "Test interval (minutes)",
+          "threads": "Download/upload threads (0 = auto)",
+          "duration": "Test duration in seconds (0 = server default)",
+          "no_tls_verify": "Skip TLS certificate verification (insecure)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "download_speed": {
+        "name": "Download Speed"
+      },
+      "upload_speed": {
+        "name": "Upload Speed"
+      },
+      "ping_min": {
+        "name": "Ping (Min)"
+      },
+      "ping_median": {
+        "name": "Ping (Median)"
+      },
+      "result_url": {
+        "name": "Result URL"
+      }
+    },
+    "button": {
+      "run_test": {
+        "name": "Run Speedtest"
+      }
+    }
+  }
+}
