@@ -50,6 +50,47 @@ Copy `custom_components/rmbt_speedtest/` into your HA `config/custom_components/
 | Skip TLS verify | off | Disable TLS certificate checks (useful for local test servers) |
 
 
+## Triggering a speedtest
+
+### Dashboard button
+
+Add a **Button** card pointing at the `button.run_speedtest` entity to kick off a test on demand.
+
+### Automation / script — button press
+
+```yaml
+- action: button.press
+  target:
+    entity_id: button.rmbt_speedtest_run_speedtest
+```
+
+### Automation / script — update entity
+
+Calling `homeassistant.update_entity` on any of the sensors also triggers a full coordinator refresh:
+
+```yaml
+- action: homeassistant.update_entity
+  target:
+    entity_id: sensor.rmbt_speedtest_download_speed
+```
+
+### Example: notify when download drops below threshold
+
+```yaml
+automation:
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.rmbt_speedtest_download_speed
+      below: 50
+  action:
+    - action: notify.mobile_app
+      data:
+        message: >
+          Speed test: download {{ states('sensor.rmbt_speedtest_download_speed') }} Mbit/s
+          — {{ states('sensor.rmbt_speedtest_result_url') }}
+```
+
+
 ## License
 
 Apache 2.0 — see [LICENSE](LICENSE).
