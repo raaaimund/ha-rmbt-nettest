@@ -51,6 +51,11 @@
         "name": "Ergebnis-URL"
       }
     },
+    "binary_sensor": {
+      "test_running": {
+        "name": "Test läuft"
+      }
+    },
     "button": {
       "run_test": {
         "name": "Speedtest starten"

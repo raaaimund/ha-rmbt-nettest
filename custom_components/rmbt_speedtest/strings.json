@@ -51,6 +51,11 @@
         "name": "Result URL"
       }
     },
+    "binary_sensor": {
+      "test_running": {
+        "name": "Test Running"
+      }
+    },
     "button": {
       "run_test": {
         "name": "Run Speedtest"

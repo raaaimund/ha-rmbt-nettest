@@ -33,8 +33,10 @@ class RmbtSpeedTestCoordinator(DataUpdateCoordinator[SpeedTestResult | None]):
     """Runs RMBT speed tests on a schedule and distributes results to entities."""
 
     config_entry: ConfigEntry
+    running: bool
 
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
+        self.running = False
         interval = config_entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
         super().__init__(
             hass=hass,
@@ -52,12 +54,17 @@ class RmbtSpeedTestCoordinator(DataUpdateCoordinator[SpeedTestResult | None]):
         duration = int(self.config_entry.options.get(CONF_DURATION, DEFAULT_DURATION))
         no_tls_verify = bool(self.config_entry.options.get(CONF_NO_TLS_VERIFY, False))
 
+        self.running = True
+        self.async_update_listeners()
+
         try:
             raw = await self.hass.async_add_executor_job(
                 run_speedtest, host, uuid, threads, duration, no_tls_verify, CLIENT_VERSION,
             )
         except Exception as err:
             raise UpdateFailed(f"Speed test failed: {err}") from err
+        finally:
+            self.running = False
 
         if raw["uuid"] != uuid:
             self.hass.config_entries.async_update_entry(
