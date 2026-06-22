@@ -39,7 +39,7 @@ Copy `custom_components/rmbt_speedtest/` into your HA `config/custom_components/
 ## Configuration
 
 1. Go to **Settings → Devices & Services → Add Integration** and search for "RMBT Speedtest".
-2. Enter the control server URL (default: `https://controlserver.netztest.at`).
+2. Enter the control server URL (default: `https://c01.netztest.at`).
 3. The integration registers a client UUID with the server and runs the first test in the background.
 
 ### Options

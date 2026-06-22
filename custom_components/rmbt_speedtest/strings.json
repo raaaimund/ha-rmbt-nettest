@@ -8,7 +8,7 @@
           "host": "Control server URL"
         },
         "data_description": {
-          "host": "Base URL of the RMBT control server, e.g. https://controlserver.netztest.at"
+          "host": "Base URL of the RMBT control server, e.g. https://c01.netztest.at"
         }
       }
     },
