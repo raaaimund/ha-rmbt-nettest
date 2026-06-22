@@ -11,7 +11,7 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import CONF_HOST, DOMAIN
+from .const import DOMAIN, NETZTEST_URL
 from .coordinator import RmbtSpeedTestCoordinator
 
 if TYPE_CHECKING:
@@ -52,7 +52,7 @@ class RmbtTestRunningSensor(CoordinatorEntity[RmbtSpeedTestCoordinator], BinaryS
             name=coordinator.config_entry.title,
             manufacturer="RTR",
             model="RMBT Client",
-            configuration_url=coordinator.config_entry.data.get(CONF_HOST),
+            configuration_url=NETZTEST_URL,
         )
 
     @property

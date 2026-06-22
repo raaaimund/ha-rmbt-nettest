@@ -14,7 +14,7 @@ from homeassistant.const import UnitOfDataRate, UnitOfTime
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTRIBUTION, CONF_HOST, DOMAIN
+from .const import ATTRIBUTION, DOMAIN, NETZTEST_URL
 from .coordinator import RmbtSpeedTestCoordinator
 from .data import SpeedTestResult
 
@@ -105,7 +105,7 @@ class RmbtSpeedTestSensor(CoordinatorEntity[RmbtSpeedTestCoordinator], SensorEnt
             name=coordinator.config_entry.title,
             manufacturer="RTR",
             model="RMBT Client",
-            configuration_url=coordinator.config_entry.data.get(CONF_HOST),
+            configuration_url=NETZTEST_URL,
         )
 
     @property
