@@ -114,15 +114,13 @@ automation:
 ```
 
 
-## Bundled Python client
+## Python client dependency
 
-The `custom_components/rmbt_speedtest/rmbt_client/` directory is a verbatim copy of the Python client from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli). It is bundled rather than referenced as a git submodule because HACS does not initialise submodules on install.
-
-If the Python client is ever published to PyPI, the bundled copy can be replaced with a `requirements` entry in `manifest.json` and the directory removed. Until then, keep the copy in sync with upstream manually when the client is updated.
+This integration depends on the [`rmbt-client`](https://pypi.org/project/rmbt-client/) PyPI package, which originates from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). Home Assistant installs it automatically when the integration loads.
 
 
 ## License
 
 The integration code is licensed under the **MIT License** — see [LICENSE](LICENSE).
 
-The bundled Python client in `custom_components/rmbt_speedtest/rmbt_client/` originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0** — see [rmbt_client/LICENSE](custom_components/rmbt_speedtest/rmbt_client/LICENSE).
+The [`rmbt-client`](https://pypi.org/project/rmbt-client/) dependency originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0**.

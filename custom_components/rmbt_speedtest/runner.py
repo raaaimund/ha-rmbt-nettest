@@ -6,7 +6,7 @@ import threading
 import time
 from typing import Any
 
-from .rmbt_client import connection, control, pretest, tests
+from rmbt_client import connection, control, pretest, tests
 
 _MAX_THREADS = 20
 
