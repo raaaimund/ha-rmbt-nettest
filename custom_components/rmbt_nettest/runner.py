@@ -7,7 +7,7 @@ import time
 from typing import Any
 from urllib.parse import urlparse
 
-from rmbt_nettest import connection, control, pretest, tests
+from rmbt_client import connection, control, pretest, tests
 
 _MAX_THREADS = 20
 

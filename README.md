@@ -189,11 +189,11 @@ automation:
 
 ## Python client dependency
 
-This integration depends on the [`rmbt-nettest`](https://pypi.org/project/rmbt-nettest/) PyPI package, which originates from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). Home Assistant installs it automatically when the integration loads.
+This integration depends on the [`rmbt-client`](https://pypi.org/project/rmbt-client/) PyPI package, which originates from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). Home Assistant installs it automatically when the integration loads.
 
 
 ## License
 
 The integration code is licensed under the **MIT License** — see [LICENSE](LICENSE).
 
-The [`rmbt-nettest`](https://pypi.org/project/rmbt-nettest/) dependency originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0**.
+The [`rmbt-client`](https://pypi.org/project/rmbt-client/) dependency originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0**.

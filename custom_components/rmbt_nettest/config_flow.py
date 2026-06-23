@@ -33,7 +33,7 @@ def _normalise_host(host: str) -> str:
 
 def _register_client(host: str) -> str:
     """Call request_settings to verify connectivity and obtain a UUID."""
-    from rmbt_nettest import control  # noqa: PLC0415
+    from rmbt_client import control  # noqa: PLC0415
     return control.request_settings(host, None, CLIENT_VERSION, False)
 
 
