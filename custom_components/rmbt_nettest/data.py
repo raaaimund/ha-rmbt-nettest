@@ -1,4 +1,4 @@
-"""Runtime data types for rmbt_speedtest."""
+"""Runtime data types for rmbt_nettest."""
 
 from __future__ import annotations
 

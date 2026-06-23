@@ -1,11 +1,9 @@
-RMBT Speedtest — Home Assistant Integration
-============================================
+RMBT Nettest — Home Assistant Integration
+==========================================
 
 A [Home Assistant](https://www.home-assistant.io/) custom integration that runs RMBT network speed tests and exposes the results as sensors.
 
 Uses the Python RMBT client from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of the original [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). No third-party dependencies — pure Python stdlib.
-
-Special thanks to [RTR-Netztest](https://www.netztest.at) for providing the measurement infrastructure.
 
 
 ## Sensors
@@ -16,11 +14,11 @@ Special thanks to [RTR-Netztest](https://www.netztest.at) for providing the meas
 | Upload Speed | Mbit/s | Aggregate upload throughput |
 | Ping (Min) | ms | Minimum round-trip time |
 | Ping (Median) | ms | Median round-trip time |
-| Result URL | — | Link to the detailed test result on netztest.at |
+| Result URL | — | Link to the detailed test result on the measurement server |
 
 The **Result URL** sensor also carries `test_uuid`, `open_test_uuid`, and `ping_count` as extra attributes.
 
-A **Run Speedtest** button entity triggers an immediate test outside of the scheduled interval.
+A **Run Nettest** button entity triggers an immediate test outside of the scheduled interval.
 
 
 ## Installation
@@ -28,18 +26,18 @@ A **Run Speedtest** button entity triggers an immediate test outside of the sche
 ### Via HACS (recommended)
 
 1. Add this repository as a custom HACS repository (Category: Integration).
-2. Install "RMBT Speedtest" from HACS.
+2. Install "RMBT Nettest" from HACS.
 3. Restart Home Assistant.
 
 ### Manual
 
-Copy `custom_components/rmbt_speedtest/` into your HA `config/custom_components/` directory and restart.
+Copy `custom_components/rmbt_nettest/` into your HA `config/custom_components/` directory and restart.
 
 
 ## Configuration
 
-1. Go to **Settings → Devices & Services → Add Integration** and search for "RMBT Speedtest".
-2. Enter the control server URL (default: `https://c01.netztest.at`).
+1. Go to **Settings → Devices & Services → Add Integration** and search for "RMBT Nettest".
+2. Enter the control server URL of your RMBT measurement server.
 3. The integration registers a client UUID with the server and runs the first test in the background.
 
 ### Options
@@ -52,13 +50,13 @@ Copy `custom_components/rmbt_speedtest/` into your HA `config/custom_components/
 | Skip TLS verify | off | Disable TLS certificate checks (useful for local test servers) |
 
 
-## Triggering a speedtest
+## Triggering a nettest
 
 ### Dashboard button
 
-Add a **Button** card pointing at the `button.run_speedtest` entity to kick off a test on demand.
+Add a **Button** card pointing at the `button.run_nettest` entity to kick off a test on demand.
 
-The button automatically becomes **unavailable (grayed out)** while a test is running, preventing double-presses. A companion `binary_sensor.rmbt_speedtest_test_running` entity turns `on` for the duration of the test and can be used in automations or custom dashboard cards.
+The button automatically becomes **unavailable (grayed out)** while a test is running, preventing double-presses. A companion `binary_sensor.rmbt_nettest_test_running` entity turns `on` for the duration of the test and can be used in automations or custom dashboard cards.
 
 ### Dashboard button with spinner (custom:button-card)
 
@@ -66,8 +64,8 @@ Install [custom:button-card](https://github.com/custom-cards/button-card) via HA
 
 ```yaml
 type: custom:button-card
-entity: button.rmbt_speedtest_run_speedtest
-name: Run Speedtest
+entity: button.rmbt_nettest_run_nettest
+name: Run Nettest
 icon: mdi:speedometer
 state:
   - value: unavailable
@@ -88,25 +86,25 @@ Install [lovelace-mushroom](https://github.com/piitaya/lovelace-mushroom) via HA
 ```yaml
 type: custom:mushroom-template-card
 primary: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     Running...
   {% else %}
-    Run Speedtest
+    Run Nettest
   {% endif %}
 secondary: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     Test in progress
   {% else %}
     Tap to start a speed test
   {% endif %}
 icon: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     mdi:loading
   {% else %}
     mdi:speedometer
   {% endif %}
 color: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     orange
   {% else %}
     blue
@@ -115,7 +113,7 @@ tap_action:
   action: perform-action
   perform_action: button.press
   target:
-    entity_id: button.rmbt_speedtest_run_speedtest
+    entity_id: button.rmbt_nettest_run_nettest
 ```
 
 **With animated spinner — requires [card_mod](https://github.com/thomasloven/lovelace-card-mod) (HACS) in addition to Mushroom:**
@@ -123,19 +121,19 @@ tap_action:
 ```yaml
 type: custom:mushroom-template-card
 primary: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     Running...
   {% else %}
-    Run Speedtest
+    Run Nettest
   {% endif %}
 icon: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     mdi:loading
   {% else %}
     mdi:speedometer
   {% endif %}
 color: >
-  {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+  {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     orange
   {% else %}
     blue
@@ -144,10 +142,10 @@ tap_action:
   action: perform-action
   perform_action: button.press
   target:
-    entity_id: button.rmbt_speedtest_run_speedtest
+    entity_id: button.rmbt_nettest_run_nettest
 card_mod:
   style: |
-    {% if is_state('binary_sensor.rmbt_speedtest_test_running', 'on') %}
+    {% if is_state('binary_sensor.rmbt_nettest_test_running', 'on') %}
     mushroom-shape-icon {
       --icon-animation: spin 1s linear infinite;
     }
@@ -159,7 +157,7 @@ card_mod:
 ```yaml
 - action: button.press
   target:
-    entity_id: button.rmbt_speedtest_run_speedtest
+    entity_id: button.rmbt_nettest_run_nettest
 ```
 
 ### Automation / script — update entity
@@ -169,7 +167,7 @@ Calling `homeassistant.update_entity` on any of the sensors also triggers a full
 ```yaml
 - action: homeassistant.update_entity
   target:
-    entity_id: sensor.rmbt_speedtest_download_speed
+    entity_id: sensor.rmbt_nettest_download_speed
 ```
 
 ### Example: notify when download drops below threshold
@@ -178,24 +176,24 @@ Calling `homeassistant.update_entity` on any of the sensors also triggers a full
 automation:
   trigger:
     - platform: numeric_state
-      entity_id: sensor.rmbt_speedtest_download_speed
+      entity_id: sensor.rmbt_nettest_download_speed
       below: 50
   action:
     - action: notify.mobile_app
       data:
         message: >
-          Speed test: download {{ states('sensor.rmbt_speedtest_download_speed') }} Mbit/s
-          — {{ states('sensor.rmbt_speedtest_result_url') }}
+          Speed test: download {{ states('sensor.rmbt_nettest_download_speed') }} Mbit/s
+          — {{ states('sensor.rmbt_nettest_result_url') }}
 ```
 
 
 ## Python client dependency
 
-This integration depends on the [`rmbt-client`](https://pypi.org/project/rmbt-client/) PyPI package, which originates from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). Home Assistant installs it automatically when the integration loads.
+This integration depends on the [`rmbt-nettest`](https://pypi.org/project/rmbt-nettest/) PyPI package, which originates from [raaaimund/open-rmbt-client-cli](https://github.com/raaaimund/open-rmbt-client-cli) (a fork of [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli)). Home Assistant installs it automatically when the integration loads.
 
 
 ## License
 
 The integration code is licensed under the **MIT License** — see [LICENSE](LICENSE).
 
-The [`rmbt-client`](https://pypi.org/project/rmbt-client/) dependency originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0**.
+The [`rmbt-nettest`](https://pypi.org/project/rmbt-nettest/) dependency originates from [rtr-nettest/open-rmbt-client-cli](https://github.com/rtr-nettest/open-rmbt-client-cli) and is licensed under the **Apache License 2.0**.

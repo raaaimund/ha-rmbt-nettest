@@ -17,7 +17,7 @@ jobs:
       - name: Read version from manifest
         id: version
         run: |
-          VERSION=$(jq -r '.version' custom_components/rmbt_speedtest/manifest.json)
+          VERSION=$(jq -r '.version' custom_components/rmbt_nettest/manifest.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
 

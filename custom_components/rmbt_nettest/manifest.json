@@ -1,0 +1,12 @@
+{
+  "domain": "rmbt_nettest",
+  "name": "RMBT Nettest",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://github.com/raaaimund/ha-rmbt-nettest",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/raaaimund/ha-rmbt-nettest/issues",
+  "requirements": ["rmbt-nettest==1.0.0"],
+  "version": "0.0.5"
+}

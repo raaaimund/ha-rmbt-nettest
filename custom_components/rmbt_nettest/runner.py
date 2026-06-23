@@ -5,8 +5,9 @@ from __future__ import annotations
 import threading
 import time
 from typing import Any
+from urllib.parse import urlparse
 
-from rmbt_client import connection, control, pretest, tests
+from rmbt_nettest import connection, control, pretest, tests
 
 _MAX_THREADS = 20
 
@@ -137,8 +138,9 @@ def run_speedtest(
     ping_median_ms = sorted_pings[len(sorted_pings) // 2] / 1e6 if sorted_pings else 0.0
     ping_shortest_server = min(r.server_ns for r in ping_results) if ping_results else 0
 
+    _parsed = urlparse(host)
     result_url = (
-        f"https://www.netztest.at/share/{params.open_test_uuid}"
+        f"{_parsed.scheme}://{_parsed.netloc}/share/{params.open_test_uuid}"
         if params.open_test_uuid
         else None
     )
@@ -163,7 +165,7 @@ def run_speedtest(
         "model": "Home Assistant",
         "network_type": 98,
         "platform": "HA",
-        "product": "rmbt-client-ha",
+        "product": "rmbt-nettest-ha",
         "pings": [
             {"value": r.client_ns, "value_server": r.server_ns, "time_ns": r.time_ns}
             for r in ping_results

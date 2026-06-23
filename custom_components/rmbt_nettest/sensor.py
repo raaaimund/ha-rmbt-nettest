@@ -1,4 +1,4 @@
-"""Sensor platform for rmbt_speedtest."""
+"""Sensor platform for rmbt_nettest."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from homeassistant.const import UnitOfDataRate, UnitOfTime
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTRIBUTION, DOMAIN, NETZTEST_URL
+from .const import ATTRIBUTION, CONF_HOST, DOMAIN
 from .coordinator import RmbtSpeedTestCoordinator
 from .data import SpeedTestResult
 
@@ -103,9 +103,8 @@ class RmbtSpeedTestSensor(CoordinatorEntity[RmbtSpeedTestCoordinator], SensorEnt
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.config_entry.entry_id)},
             name=coordinator.config_entry.title,
-            manufacturer="RTR",
             model="RMBT Client",
-            configuration_url=NETZTEST_URL,
+            configuration_url=coordinator.config_entry.data[CONF_HOST],
         )
 
     @property

@@ -1,4 +1,4 @@
-"""DataUpdateCoordinator for rmbt_speedtest."""
+"""DataUpdateCoordinator for rmbt_nettest."""
 
 from __future__ import annotations
 

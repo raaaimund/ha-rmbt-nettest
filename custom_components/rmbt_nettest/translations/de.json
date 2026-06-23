@@ -2,13 +2,13 @@
   "config": {
     "step": {
       "user": {
-        "title": "RMBT Speedtest",
-        "description": "Gib die Basis-URL des RMBT-Kontrollservers ein. Der Standardwert verbindet sich mit dem österreichischen RTR-Netztest.",
+        "title": "RMBT Nettest",
+        "description": "Gib die Basis-URL des RMBT-Kontrollservers ein.",
         "data": {
           "host": "Kontrollserver-URL"
         },
         "data_description": {
-          "host": "Basis-URL des RMBT-Kontrollservers, z. B. https://c01.netztest.at (RTR Netztest Österreich)"
+          "host": "Basis-URL des RMBT-Kontrollservers, z. B. https://nettest.example.com"
         }
       }
     },
@@ -23,7 +23,7 @@
   "options": {
     "step": {
       "init": {
-        "title": "RMBT Speedtest Optionen",
+        "title": "RMBT Nettest Optionen",
         "data": {
           "scan_interval": "Testintervall (Minuten)",
           "threads": "Download-/Upload-Threads (0 = automatisch)",
@@ -58,7 +58,7 @@
     },
     "button": {
       "run_test": {
-        "name": "Speedtest starten"
+        "name": "Nettest starten"
       }
     }
   }
